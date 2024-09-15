@@ -28,7 +28,7 @@ BOOL copy_data_to_file(wstring MyFilePath,wstring TargetFilePath)
 VOID inject(TCHAR* Flag, TCHAR* TargetFileDirectory, TCHAR* TargetDllName, TCHAR* MyDllPath)
 {
 	int flag = stoi(Flag);
-
+    //将TCHAR*类型的参数转换为wstring
 	wstring target_file_directory;
 	target_file_directory.assign(TargetFileDirectory);
 
@@ -55,9 +55,9 @@ void inject_by_hijack(wstring TargetFileDirectory, wstring TargetFileName, wstri
 {
 	TCHAR* target_file_directory = _tcsdup(TargetFileDirectory.c_str());
 	TCHAR* my_file_path = _tcsdup(MyFilePath.c_str());
-	wstring target_file_path = TargetFileDirectory + L"\\" + TargetFileName;
-	if (CreateDirectory((LPCWSTR)target_file_directory, NULL) || GetLastError() == ERROR_ALREADY_EXISTS) {
-		// 复制 DLL 文件
+	wstring target_file_path = TargetFileDirectory + L"\\" + TargetFileName;  //字符串的链接
+	if (CreateDirectory((LPCWSTR)target_file_directory, NULL) || GetLastError() == ERROR_ALREADY_EXISTS) {  //确保目录存在
+		// 复制 DLL 文件的数据
 		if (copy_data_to_file(my_file_path, target_file_path))
 		{
 			cout << "File copied successfully" << endl;
