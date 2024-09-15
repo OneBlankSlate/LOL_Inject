@@ -1,0 +1,6 @@
+方法一：Dll劫持
+将英雄联盟exe文件所在目录的D3dx9_43.dll文件替换为我们的hackdll，利用代码实现就是，将hackdll文件的数据内容写到D3dx9_43.dll文件中（利用文件的输入输出流），League of Legends.exe进程启动时会自动加载D3dx9_43.dll，然后就会执行hackdll文件的内容，弹出MessageBox。
+
+
+方法二：Windows消息钩子
+利用SetWindowsHookEx函数向League of Legends.exe进程下的所有线程安装鼠标消息钩子，如果有任何一个线程中出现了鼠标消息，则系统会自动让其执行hackdll的导出函数Sub_1,该函数则会让目标进程弹出MessageBox。
